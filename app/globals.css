@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Custom Tailwind Colors */
+:root {
+  --color-primary: #E63946; /* Deep Red (Main CTA Button) */
+  --color-primary-dark: #C72F3C; /* Slightly Darker for Hover */
+  
+  --color-secondary: #0056D2; /* Royal Blue (Alternative CTA) */
+  --color-secondary-dark: #0046A1; /* Darker Shade for Hover */
+  
+  --color-accent: #F39C12; /* Vibrant Orange (Accent Elements) */
+  --color-accent-dark: #D1800C;
+  
+  --color-neutral-black: #1A1A1A; /* Primary Text Color */
+  --color-neutral-gray: #333333; /* Navbar or Card Headings */
+  --color-neutral-lightgray: #666666; /* Subtext */
+  --color-neutral-border: #E5E7EB; /* Light Border Color */
+  --color-neutral-background: #F5F5F5; /* Light Gray Background for Sections */
+  
+  --color-navbar-darknavy: #002B5B; /* Dark Navy Navbar */
+  --color-navbar-charcoal: #333333; /* Charcoal Navbar Option */
+  --color-navbar-emerald: #008F5F; /* Emerald Green Navbar Option */
+  
+  --color-button-primary: #E63946;
+  --color-button-secondary: #0056D2;
+  --color-button-accent: #F39C12;
+  --color-button-muted: #6C757D; /* Slate Gray (Less Priority Buttons) */
+  --color-button-gold: #C79833; /* Muted Gold (Luxury Feel) */
+  --color-button-teal: #28A79F; /* Soft Teal (Alternative) */
+  
+  --color-background-white: #FFFFFF; /* Default Background */
+  --color-background-beige: #F8F1EB; /* Light Beige Section Background */
+  --color-background-lightgray: #F5F5F5; /* Subtle Gray for Cards & Sections */
+}
+
+/* Example usage */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.bg-primary-dark {
+  background-color: var(--color-primary-dark);
+}
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+.bg-secondary-dark {
+  background-color: var(--color-secondary-dark);
+}
+.bg-accent {
+  background-color: var(--color-accent);
+}
+.bg-accent-dark {
+  background-color: var(--color-accent-dark);
+}
+.text-neutral-black {
+  color: var(--color-neutral-black);
+}
+.text-neutral-gray {
+  color: var(--color-neutral-gray);
+}
+.text-neutral-lightgray {
+  color: var(--color-neutral-lightgray);
+}
+.border-neutral {
+  border-color: var(--color-neutral-border);
+}
+.bg-navbar-darknavy {
+  background-color: var(--color-navbar-darknavy);
+}
+.bg-navbar-charcoal {
+  background-color: var(--color-navbar-charcoal);
+}
+.bg-navbar-emerald {
+  background-color: var(--color-navbar-emerald);
+}
+.bg-button-primary {
+  background-color: var(--color-button-primary);
+}
+.bg-button-secondary {
+  background-color: var(--color-button-secondary);
+}
+.bg-button-accent {
+  background-color: var(--color-button-accent);
+}
+.bg-button-muted {
+  background-color: var(--color-button-muted);
+}
+.bg-button-gold {
+  background-color: var(--color-button-gold);
+}
+.bg-button-teal {
+  background-color: var(--color-button-teal);
+}
+.bg-background-white {
+  background-color: var(--color-background-white);
+}
+.bg-background-beige {
+  background-color: var(--color-background-beige);
+}
+.bg-background-lightgray {
+  background-color: var(--color-background-lightgray);
+}
+
+.scrol-undisplay {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer & Edge */
+}
+
+.scrol-undisplay::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.solutions-swiper {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.solutions-swiper .swiper-button-next,
+.solutions-swiper .swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.solutions-swiper .swiper-button-next:after,
+.solutions-swiper .swiper-button-prev:after {
+  font-size: 16px;
+  color: #000;
+}
+
+.solutions-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: white;
+}
+
+@media (max-width: 768px) {
+  .solutions-swiper .swiper-slide {
+    height: 400px;
+  }
+}
