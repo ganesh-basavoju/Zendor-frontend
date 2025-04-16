@@ -228,16 +228,7 @@ useEffect(()=>{
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-lg shadow-sm">
-                <span className="block text-sm text-gray-500 mb-1">Wastage Factor</span>
-                <span className="text-lg font-medium text-gray-900">{dimensions?.wastageArea || 0} sq.ft</span>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm">
-                <span className="block text-sm text-gray-500 mb-1">No. of cartons</span>
-                <span className="text-lg font-medium text-gray-900">{dimensions?.cartonsNeeded || 0}</span>
-              </div>
-            </div>
+            
           </div>
 
           <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
