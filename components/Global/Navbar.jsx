@@ -247,15 +247,15 @@ const Navbar = () => {
           </div>
 
           <div className='grid grid-cols-3 gap-4 pt-4 border-t border-[#283593]'>
-            <button onClick={handleSignIn} className='flex flex-col items-center space-y-1 p-3 hover:bg-[#283593] rounded-lg'>
+            <button onClick={handleSignIn} className='flex flex-col items-center space-y-1 p-3 text-gray-200 hover:bg-[#283593] rounded-lg'>
               <FaUser />
               <span className='text-sm'>Account</span>
             </button>
-            <button onClick={() => router.push("/wishlist")} className='flex flex-col items-center space-y-1 p-3 hover:bg-[#283593] rounded-lg'>
+            <button onClick={() => router.push("/wishlist")} className='flex flex-col text-gray-200 items-center space-y-1 p-3 hover:bg-[#283593] rounded-lg'>
               <FaHeart />
               <span className='text-sm'>Wishlist</span>
             </button>
-            <button onClick={() => router.push("/cart")} className='flex flex-col items-center space-y-1 p-3 hover:bg-[#283593] rounded-lg'>
+            <button onClick={() => router.push("/cart")} className='flex flex-col items-center text-gray-200 space-y-1 p-3 hover:bg-[#283593] rounded-lg'>
               <FaCartPlus />
               <span className='text-sm'>Cart</span>
             </button>

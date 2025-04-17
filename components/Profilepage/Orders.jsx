@@ -55,18 +55,18 @@ export default function Orders() {
   return (
     <div className="space-y-6">
       {/* Header Section */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">My Orders</h2>
-          <p className="text-gray-500 mt-1">Track and manage your orders</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">My Orders</h2>
+          <p className="text-sm sm:text-base text-gray-500 mt-1">Track and manage your orders</p>
         </div>
         
         {/* Filter and Search Section */}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="px-3 sm:px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-sm"
           >
             <option value="All">All Orders</option>
             {Object.keys(orderStatuses).map(status => (
@@ -74,11 +74,11 @@ export default function Orders() {
             ))}
           </select>
 
-          <div className="relative">
+          <div className="relative flex-1 sm:flex-none">
             <input
               type="text"
               placeholder="Search orders..."
-              className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-sm"
             />
             <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
           </div>
@@ -86,18 +86,18 @@ export default function Orders() {
       </div>
 
       {/* Orders Grid */}
-      <div className="grid gap-6">
+      <div className="grid gap-4 sm:gap-6">
         {filteredOrders.map((order) => {
           const StatusIcon = orderStatuses[order.status].icon;
           
           return (
             <div
               key={order.id}
-              className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6"
+              className="bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 sm:p-6"
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
                 {/* Product Image */}
-                <div className="relative w-24 h-24 flex-shrink-0">
+                <div className="relative w-full sm:w-24 h-48 sm:h-24 flex-shrink-0">
                   <Image
                     src={order.image}
                     alt={order.name}
@@ -107,22 +107,22 @@ export default function Orders() {
                 </div>
 
                 {/* Order Details */}
-                <div className="flex-1 space-y-2">
-                  <div className="flex justify-between">
+                <div className="flex-1 space-y-2 sm:space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0">
                     <h3 className="font-medium text-gray-900">{order.name}</h3>
                     <span className="text-gray-900 font-medium">{order.price}</span>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
                     <span>Order #{order.id}</span>
                     <span>•</span>
                     <span>Qty: {order.quantity}</span>
                   </div>
 
-                  <div className="flex justify-between items-center pt-2">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 pt-2">
                     <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${orderStatuses[order.status].color}`}>
                       <StatusIcon size={16} />
-                      <span className="text-sm font-medium">{order.status}</span>
+                      <span className="text-xs sm:text-sm font-medium">{order.status}</span>
                     </div>
 
                     <button className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">

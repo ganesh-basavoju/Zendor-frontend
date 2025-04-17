@@ -1,53 +1,112 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { XCircle, Heart, Search, ShoppingCart, Trash2 } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, X } from "lucide-react";
 
-const wishlistItems = [
-  {
-    id: 1,
-    name: "Elegant Floral Wallpaper",
-    priceRange: "₹2,499 – ₹4,999",
-    image: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4008-1024x1536.jpg",
-    inStock: true,
-    addedOn: "Mon, 24-Mar-2025",
-    category: "Premium Wallpaper"
-  },
-  {
-    id: 2,
-    name: "Vintage Botanical Print",
-    priceRange: "₹3,299 – ₹5,999",
-    image: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4023-683x1024.jpg",
-    inStock: true,
-    addedOn: "Mon, 24-Mar-2025",
-    category: "Designer Collection"
-  },
-  {
-    id: 3,
-    name: "Modern Abstract Pattern",
-    priceRange: "₹2,899 – ₹4,599",
-    image: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4013-683x1024.jpg",
-    inStock: false,
-    addedOn: "Tue, 25-Mar-2025",
-    category: "Contemporary Series"
-  },
-  {
-    id: 4,
-    name: "Nature-Inspired Design",
-    priceRange: "₹3,499 – ₹6,299",
-    image: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4022-683x1024.jpg",
-    inStock: true,
-    addedOn: "Wed, 26-Mar-2025",
-    category: "Luxury Wallpaper"
-  },
-];
-
-const Wishlist = () => {
-  const [items, setItems] = useState(wishlistItems);
+const MoodBoard = () => {
+  const [projects, setProjects] = useState([
+    {
+      id: 1,
+      name: "Worli Project",
+      address: "Worli, Mumbai",
+      products: 3,
+      thumbnail: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4008-1024x1536.jpg",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 2,
+      name: "Beach House",
+      address: "Goa",
+      products: 5,
+      thumbnail: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4023-683x1024.jpg",
+      createdAt: new Date().toISOString()
+    }
+  ]);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentProject, setCurrentProject] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+  });
 
-  const removeItem = (id) => {
-    setItems(items.filter(item => item.id !== id));
+  const handleCreateProject = () => {
+    if (!formData.name.trim()) return;
+    
+    const newProject = {
+      id: Date.now(),
+      name: formData.name,
+      address: formData.address,
+      products: [],
+      thumbnail: "https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4008-1024x1536.jpg", // Default thumbnail
+      createdAt: new Date().toISOString()
+    };
+
+    setProjects(prev => [...prev, newProject]);
+    setFormData({ name: "", address: "" });
+    setShowCreateModal(false);
+  };
+
+  const handleEditProject = () => {
+    if (!formData.name.trim() || !currentProject) return;
+
+    setProjects(prev => prev.map(project => 
+      project.id === currentProject.id 
+        ? { ...project, name: formData.name, address: formData.address }
+        : project
+    ));
+    setShowEditModal(false);
+    setCurrentProject(null);
+    setFormData({ name: "", address: "" });
+  };
+
+  const handleDeleteProject = (projectId) => {
+    setProjects(prev => prev.filter(project => project.id !== projectId));
+  };
+
+  const openEditModal = (project) => {
+    setCurrentProject(project);
+    setFormData({ name: project.name, address: project.address });
+    setShowEditModal(true);
+  };
+
+  const filteredProjects = projects.filter(project => 
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Modal Component
+  const Modal = ({ show, onClose, title, onSubmit, children }) => {
+    if (!show) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-xl p-6 w-full max-w-md relative">
+          <button 
+            onClick={onClose}
+            className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+          >
+            <X size={20} />
+          </button>
+          <h3 className="text-xl font-semibold mb-4">{title}</h3>
+          {children}
+          <div className="flex justify-end gap-3 mt-6">
+            <button 
+              onClick={onClose}
+              className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+            >
+              Cancel
+            </button>
+            <button 
+              onClick={onSubmit}
+              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+            >
+              {title === "Create New Project" ? "Create" : "Save Changes"}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -57,14 +116,14 @@ const Wishlist = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Mood Board</h2>
           <p className="text-gray-500 mt-1">
-            {items.length} {items.length === 1 ? 'item' : 'items'} saved
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
           </p>
         </div>
 
         <div className="relative">
           <input
             type="text"
-            placeholder="Search wishlist..."
+            placeholder="Search projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -73,74 +132,99 @@ const Wishlist = () => {
         </div>
       </div>
 
-      {/* Wishlist Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {items.map((item) => (
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* Create New Project Card */}
+        <button 
+          onClick={() => setShowCreateModal(true)}
+          className="aspect-square border-2 border-dashed border-gray-300 rounded-xl hover:border-gray-400 transition-colors flex flex-col items-center justify-center gap-3 group"
+        >
+          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+            <Plus className="text-gray-600" />
+          </div>
+          <span className="text-gray-600 font-medium">Create New</span>
+        </button>
+
+        {/* Project Cards */}
+        {filteredProjects.map((project) => (
           <div 
-            key={item.id} 
-            className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+            key={project.id}
+            className="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden"
           >
-            {/* Product Image */}
-            <div className="relative aspect-square">
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <button 
-                onClick={() => removeItem(item.id)}
-                className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-red-50 transition-colors"
-              >
-                <Trash2 size={18} className="text-red-500" />
-              </button>
-            </div>
-
-            {/* Product Details */}
-            <div className="p-4 space-y-3">
-              <div>
-                <p className="text-sm text-gray-500">{item.category}</p>
-                <h3 className="font-medium text-gray-900 mt-1">{item.name}</h3>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-gray-900 font-medium">{item.priceRange}</span>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  item.inStock 
-                    ? "text-green-700 bg-green-50" 
-                    : "text-red-700 bg-red-50"
-                }`}>
-                  {item.inStock ? "In Stock" : "Out of Stock"}
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between pt-3 border-t">
-                <span className="text-sm text-gray-500">
-                  Added {new Date(item.addedOn).toLocaleDateString()}
-                </span>
-                <button 
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
-                  disabled={!item.inStock}
-                >
-                  <ShoppingCart size={16} />
-                  Add to Cart
-                </button>
+            <Image
+              src={project.thumbnail}
+              alt={project.name}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-white font-medium">{project.name}</h3>
+                  <p className="text-white/80 text-sm">
+                    {project.products.length} products
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => openEditModal(project)}
+                    className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                  >
+                    <Pencil size={16} className="text-white" />
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteProject(project.id)}
+                    className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                  >
+                    <Trash2 size={16} className="text-white" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Empty State */}
-      {items.length === 0 && (
-        <div className="text-center py-12">
-          <Heart size={48} className="mx-auto text-gray-400 mb-4" />
-          <h3 className="text-lg font-medium text-gray-900">Your wishlist is empty</h3>
-          <p className="text-gray-500 mt-1">Save items you love to your wishlist</p>
+      {/* Create/Edit Project Modal */}
+      <Modal 
+        show={showCreateModal || showEditModal}
+        onClose={() => {
+          setShowCreateModal(false);
+          setShowEditModal(false);
+          setFormData({ name: "", address: "" });
+        }}
+        title={showEditModal ? "Edit Project" : "Create New Project"}
+        onSubmit={showEditModal ? handleEditProject : handleCreateProject}
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Project Name
+            </label>
+            <input 
+              type="text"
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+              placeholder="Enter project name"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Project Address
+            </label>
+            <textarea 
+              value={formData.address}
+              onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+              rows={3}
+              placeholder="Enter project address"
+            />
+          </div>
         </div>
-      )}
+      </Modal>
     </div>
   );
 };
 
-export default Wishlist;
+export default MoodBoard;

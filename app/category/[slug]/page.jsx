@@ -113,10 +113,10 @@ export default function CategoryPage() {
         {/* Subcategories Navigation */}
         <div className="bg-white rounded-lg shadow-sm p-4">
           <h2 className="text-lg font-medium mb-4">Categories</h2>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-nowrap overflow-x-auto pb-2 md:flex-wrap gap-3 -mx-4 px-4 md:mx-0 md:px-0">
             <button
               onClick={() => setSelectedSubcategory(null)}
-              className={`px-4 py-2 rounded-md transition-colors ${
+              className={`px-4 py-2 rounded-md transition-colors whitespace-nowrap ${
                 selectedSubcategory === null
                   ? 'bg-gray-900 text-white'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
@@ -128,7 +128,7 @@ export default function CategoryPage() {
               <button
                 key={subcat.id}
                 onClick={() => setSelectedSubcategory(subcat.id)}
-                className={`px-4 py-2 rounded-md transition-colors ${
+                className={`px-4 py-2 rounded-md transition-colors whitespace-nowrap ${
                   selectedSubcategory === subcat.id
                     ? 'bg-gray-900 text-white'
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
@@ -143,8 +143,8 @@ export default function CategoryPage() {
 
       {/* Search and Filters Bar */}
       <div className="max-w-7xl mx-auto px-4 mb-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
-          <div className="relative flex-1 max-w-md">
+        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
+          <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
@@ -155,7 +155,7 @@ export default function CategoryPage() {
             />
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-row justify-between sm:justify-end items-center gap-4">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setViewMode('grid')}
@@ -171,20 +171,16 @@ export default function CategoryPage() {
               </button>
             </div>
 
-            <div className="flex items-center gap-2">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              >
-                <option>Featured</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Newest First</option>
-              </select>
-
-              
-            </div>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            >
+              <option>Featured</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest First</option>
+            </select>
           </div>
         </div>
       </div>

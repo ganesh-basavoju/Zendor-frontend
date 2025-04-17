@@ -5,7 +5,6 @@ import AccountDetails from "@/components/Profilepage/AccountDetails";
 import  {Addresses}  from "@/components/Profilepage/Addresses";
 import { Dashboard } from "@/components/Profilepage/Dashboard";
 import Orders from "@/components/Profilepage/Orders";
-import Wishlist from "@/components/Profilepage/Wishlist";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -14,11 +13,12 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import MoodBoard from "@/components/Profilepage/Wishlist";
 
 const menuItems = [
   { id: 1, icon: LayoutDashboard, text: "Dashboard", label: "Overview of your account", component: Dashboard },
   { id: 2, icon: ShoppingCart, text: "Orders", label: "Track your orders", component: Orders },
-  { id: 3, icon: Heart, text: "Mood Board", label: "Your saved items", component: Wishlist },
+  { id: 3, icon: Heart, text: "Mood Board", label: "Your saved items", component: MoodBoard },
   { id: 4, icon: MapPin, text: "Addresses", label: "Manage delivery addresses", component: Addresses },
   { id: 5, icon: User, text: "Account Details", label: "Update your information", component: AccountDetails },
 ];
