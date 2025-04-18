@@ -4,7 +4,7 @@ import { MoreVertical, Edit2, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const ProductCard = ({ product, onDelete }) => {
+const ProductCard = ({ product, onDelete,category }) => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -25,7 +25,7 @@ const ProductCard = ({ product, onDelete }) => {
   return (
     <div 
       className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer"
-      onClick={() => router.push(`/admin/products/${product.id}`)}
+      onClick={() => router.push(`/admin/products/${category}/${product.id}`)}
     >
       <div className="relative h-48 rounded-t-lg overflow-hidden">
         <Image

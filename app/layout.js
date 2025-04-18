@@ -5,6 +5,8 @@ import Navbar from "@/components/Global/Navbar";
 import Footer from "@/components/Global/Footer";
 import ClientWrapper from '@/components/Global/ClientWrapper';
 import { usePathname } from "next/navigation";
+import { Provider } from "react-redux";
+import store from '../store'; // Ensure this path is correct
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +33,11 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         <main className={!isHomePage&&"mt-25"} >
+        <Provider store={store}>
           <ClientWrapper>
             {children}
           </ClientWrapper>
+          </Provider>
         </main>
         
       </body>

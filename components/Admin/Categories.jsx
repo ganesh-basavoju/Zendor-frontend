@@ -1,8 +1,12 @@
 "use client";
 import { useState } from 'react';
 import { Folder, Plus, Edit2, Trash2, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const Categories = () => {
+
+
+  const router = useRouter();
   const [categories, setCategories] = useState([
     { 
       id: 1, 
@@ -64,10 +68,12 @@ const Categories = () => {
         </button>
 
         {/* Category Cards */}
+        {/* Update the onClick handler in Category Cards mapping */}
         {categories.map((category) => (
           <div
             key={category.id}
-            className="group relative aspect-square rounded-xl overflow-hidden"
+            onClick={() => router.push(`/admin/categories/${category.name.toLowerCase().replace(/\s+/g, '-')}`)}
+            className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
           >
             {/* Background Image */}
             <div className="absolute inset-0">

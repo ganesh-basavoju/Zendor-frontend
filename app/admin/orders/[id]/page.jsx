@@ -3,8 +3,8 @@ import AdminLayout from '@/components/Admin/Layout';
 
 export default function OrderDetailsPage() {
   return (
-    <AdminLayout>
+
       <OrderDetails />
-    </AdminLayout>
+
   );
 }

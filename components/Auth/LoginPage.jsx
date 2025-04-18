@@ -14,17 +14,18 @@ const LoginPage = ({ onSuccess }) => {
   });
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
-      <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8 order-2 md:order-1">
-        <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
+      {/* Left: Form Section */}
+      <div className="flex flex-1 items-center justify-center px-4 py-8 md:px-8 lg:px-16 order-2 md:order-1">
+        <div className="w-full max-w-md md:max-w-lg lg:max-w-xl space-y-8 bg-white rounded-2xl shadow-lg p-6 md:p-10">
           {/* Logo or Brand Name */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-[#003f62] mb-2">Zendorr</h2>
-            <p className="text-gray-600">Your Home Decor Destination</p>
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#003f62] mb-2">Zendorr</h2>
+            <p className="text-gray-600 text-base md:text-lg">Your Home Decor Destination</p>
           </div>
 
           {/* Toggle Buttons */}
-          <div className="flex gap-4 mb-8 p-1 bg-gray-100 rounded-lg">
+          <div className="flex gap-2 mb-8 p-1 bg-gray-100 rounded-lg">
             <button
               onClick={() => setIsLogin(true)}
               className={`flex-1 py-2.5 rounded-lg font-medium transition-all duration-300 ${
@@ -157,14 +158,14 @@ const LoginPage = ({ onSuccess }) => {
         </div>
       </div>
 
-      {/* Right Side - Image with Overlay */}
-      <div className="w-full md:w-1/2 h-64 md:h-full relative order-1 md:order-2">
+      {/* Right: Image Section */}
+      <div className="relative flex-1 min-h-[220px] md:min-h-0 md:h-auto order-1 md:order-2">
         <div className="absolute inset-0 bg-[#003f62]/30 z-10" />
         <Image
           src="https://150751433.v2.pressablecdn.com/wp-content/uploads/2024/08/WP4008-1024x1536.jpg"
           alt="Decorative background"
           fill
-          className="object-cover"
+          className="object-cover rounded-b-2xl md:rounded-none md:rounded-l-2xl"
           priority
         />
         <div className="absolute inset-0 flex items-center justify-center z-20 p-4">

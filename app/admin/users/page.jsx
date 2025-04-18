@@ -3,8 +3,8 @@ import UsersList from '@/components/Admin/Users/UsersList';
 
 export default function UsersPage() {
   return (
-    <AdminLayout>
+   
       <UsersList />
-    </AdminLayout>
+  
   );
 }

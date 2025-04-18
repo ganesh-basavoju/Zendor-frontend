@@ -355,7 +355,51 @@ export default function WoodenFlooringProduct() {
             </div>
           </div>
 
-          
+          {/* Related Products Section */}
+          <div className="mt-12 sm:mt-16">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Related products</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {[
+                {
+                  id: 1,
+                  name: 'Oak Natural',
+                  image: "https://www.bohomaterials.com/web/image/product.product/16/image_1024/Walnut%20Dark?unique=f7b911a",
+                  colors: ['brown', 'natural']
+                },
+                {
+                  id: 2,
+                  name: 'Maple Light',
+                  image: "https://www.bohomaterials.com/web/image/product.product/17/image_1024/Oak%20Natural?unique=f7b911b",
+                  colors: ['beige', 'light']
+                },
+                {
+                  id: 3,
+                  name: 'Walnut Dark',
+                  image: "https://www.bohomaterials.com/web/image/product.product/25/image_1024/Oak%20Light%20(C)?unique=61464e9",
+                  colors: ['dark brown', 'black']
+                },
+              ].map((relatedProduct) => (
+                <div key={relatedProduct.id} className="group cursor-pointer">
+                  <div className="relative aspect-square sm:aspect-[3/4] bg-gray-50 rounded-lg sm:rounded-xl overflow-hidden">
+                    <Image
+                      src={relatedProduct.image}
+                      alt={relatedProduct.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="mt-3 sm:mt-4">
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900">{relatedProduct.name}</h3>
+                    <div className="flex gap-2 mt-1 sm:mt-2">
+                      {relatedProduct.colors.map((color, index) => (
+                        <span key={index} className="text-xs sm:text-sm text-gray-500 capitalize">{color}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       {/* Related Products Section */}
@@ -404,4 +448,5 @@ export default function WoodenFlooringProduct() {
       </div>
     </div>
     </div>
-  );}
+  );
+}
